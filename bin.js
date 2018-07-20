@@ -1,8 +1,7 @@
-#!/usr/env/node
+#!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
 const bip39 = require('bip39');
-// todo: remove mkdirp/rmraf dep
 const { spawn } = require('child_process');
 const hdkey = require('ethereumjs-wallet/hdkey');
 const {
