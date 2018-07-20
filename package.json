@@ -1,0 +1,14 @@
+{
+  "name": "gethd",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "Wang Zuo <zuo.wang@enuma.io> (https://wangzuo.me/)",
+  "license": "MIT",
+  "bin": "bin.js",
+  "dependencies": {
+    "bip39": "^2.5.0",
+    "ethereumjs-wallet": "^0.6.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.2"
+  }
+}
