@@ -1,6 +1,6 @@
 {
   "name": "gethd",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "author": "Wang Zuo <zuo.wang@enuma.io> (https://wangzuo.me/)",
   "license": "MIT",
