@@ -1,2 +1,6 @@
 yarn.lock
 keystore
+test
+.envrc
+shell.nix
+shrinkwrap.yaml
