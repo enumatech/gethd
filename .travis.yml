@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - node
+cache: yarn
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:ethereum/ethereum'
+    packages:
+      - ethereum

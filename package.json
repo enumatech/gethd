@@ -5,6 +5,9 @@
   "author": "Wang Zuo <zuo.wang@enuma.io> (https://wangzuo.me/)",
   "license": "MIT",
   "bin": "bin.js",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "bip39": "^2.5.0",
     "ethereumjs-wallet": "^0.6.0",
@@ -12,7 +15,8 @@
     "rimraf": "^2.6.2"
   },
   "devDependencies": {
-    "chai": "4.1.2",
+    "jest": "^23.4.1",
+    "jest-environment-jsdom": "^23.4.0",
     "web3": "1.0.0-beta.34"
   }
 }
