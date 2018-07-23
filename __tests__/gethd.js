@@ -8,7 +8,7 @@ beforeAll(async () => {
   gethd.start();
   await gethd.waitForReady();
   accounts = await web3.eth.getAccounts();
-});
+}, 10000);
 
 afterAll(gethd.stop);
 
