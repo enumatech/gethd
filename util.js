@@ -5,6 +5,8 @@ exports.generateKeystoreFilename = address => {
   return filename;
 };
 
+exports.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 exports.testGethInstalled = () => {};
 
 // todo: remove deps

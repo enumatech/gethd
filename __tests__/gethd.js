@@ -5,7 +5,7 @@ const web3 = new Web3('http://localhost:8545');
 let accounts = [];
 
 beforeAll(async () => {
-  gethd.start();
+  await gethd.start();
   await gethd.waitForReady();
   accounts = await web3.eth.getAccounts();
 }, 10000);

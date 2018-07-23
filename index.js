@@ -1,19 +1,11 @@
-const path = require('path');
-const { spawn } = require('child_process');
+const Gethd = require('./gethd');
+const { sleep } = require('./util');
 
-const binPath = path.join(__dirname, 'bin.js');
-let geth = null;
+let gethd = new Gethd();
 
-exports.start = () => {
-  geth = spawn('node', [binPath]);
-  return geth;
-};
+exports.start = () => gethd.start({ info: false });
 
-exports.stop = () => {
-  if (geth) {
-    geth.kill();
-  }
-};
+exports.stop = () => gethd.stop();
 
 exports.waitForReady = async () => {
   const Web3 = require('web3');
@@ -24,7 +16,7 @@ exports.waitForReady = async () => {
       await web3.eth.getAccounts();
       ready = true;
     } catch (err) {
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await sleep(100);
     }
   }
 };
