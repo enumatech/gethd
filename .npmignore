@@ -1,6 +1,6 @@
-yarn.lock
 keystore
-test
+__tests__
 .envrc
 shell.nix
 shrinkwrap.yaml
+.travis.yml
