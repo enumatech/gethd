@@ -4,21 +4,10 @@ const gethd = require('../');
 const web3 = new Web3('http://localhost:8545');
 let accounts = [];
 
-const waitForReady = async () => {
-  let ready = false;
-  while (!ready) {
-    try {
-      accounts = await web3.eth.getAccounts();
-      ready = true;
-    } catch (err) {
-      await new Promise(resolve => setTimeout(resolve, 100));
-    }
-  }
-};
-
-beforeAll(() => {
+beforeAll(async () => {
   gethd.start();
-  return waitForReady();
+  await gethd.waitForReady();
+  accounts = await web3.eth.getAccounts();
 });
 
 afterAll(gethd.stop);
