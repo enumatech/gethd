@@ -13,3 +13,14 @@ In an other terminal:
 ```
 pnpm test
 ```
+
+```javascript
+const gethd = require('gethd');
+
+beforeAll(async () => {
+  gethd.start();
+  await gethd.waitForReady();
+});
+
+afterAll(gethd.stop);
+```
