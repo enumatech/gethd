@@ -12,6 +12,8 @@ const {
 } = require('./util');
 
 class Geth {
+  // todo: options
+  // gasPrice, gasLimit, networkId, port, blockTime...
   constructor(options = {}) {
     this.dir = options.dir || process.cwd();
 
@@ -79,7 +81,11 @@ class Geth {
       '--rpccorsdomain',
       '"*"',
       '--keystore',
-      this.keystore
+      this.keystore,
+      '--unlock',
+      this.accounts.map(x => x.address).join(','),
+      '--password',
+      '/dev/null'
     ]);
 
     if (options.info) {
