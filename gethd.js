@@ -94,6 +94,7 @@ class Geth {
   async stop() {
     if (this.geth) {
       this.geth.kill();
+      this.cleanup();
       await sleep(1200);
     }
   }

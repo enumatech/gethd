@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/enumatech/gethd.svg?branch=master)](https://travis-ci.org/enumatech/gethd)
 
-``` sh
+```sh
 nix-shell
 pnpm i
 pnpm test
@@ -12,7 +12,7 @@ pnpm test
 const gethd = require('gethd');
 
 beforeAll(async () => {
-  gethd.start();
+  await gethd.start();
   await gethd.waitForReady();
 });
 
