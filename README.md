@@ -14,7 +14,7 @@ const gethd = require('gethd');
 beforeAll(async () => {
   await gethd.start();
   await gethd.waitForReady();
-});
+}, 20000);
 
 afterAll(gethd.stop);
 ```

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const tmp = require('tmp');
 const { spawn } = require('child_process');
 const path = require('path');
 const bip39 = require('bip39');
@@ -11,7 +12,7 @@ const {
   sleep
 } = require('./util');
 
-class Geth {
+class Gethd {
   // todo: options
   // gasPrice, gasLimit, networkId, port, blockTime...
   constructor(options = {}) {
@@ -19,7 +20,8 @@ class Geth {
 
     this.mnemonic = bip39.generateMnemonic();
     this.key = hdkey.fromMasterSeed(bip39.mnemonicToSeed(this.mnemonic));
-    this.keystore = path.join(this.dir, 'keystore');
+    this.datadir = path.join(this.dir, 'datadir');
+    this.keystore = path.join(this.datadir, 'keystore');
   }
 
   createAccount(index) {
@@ -63,10 +65,62 @@ class Geth {
     );
   }
 
+  writeGenesis() {
+    const genesis = {
+      config: {
+        homesteadBlock: 0,
+        eip155Block: 0,
+        eip158Block: 0
+      },
+      difficulty: '200000000',
+      gasLimit: '2100000',
+      alloc: this.accounts.reduce((x, { address }) => {
+        x[address] = { balance: '1000000000000000000' };
+        return x;
+      }, {})
+    };
+
+    console.log(genesis);
+
+    return new Promise((resolve, reject) => {
+      tmp.file((err, filepath) => {
+        if (err) return reject(err);
+
+        fs.writeFile(filepath, JSON.stringify(genesis), err => {
+          if (err) return reject(err);
+
+          this.genesis = filepath;
+          resolve(this.genesis);
+        });
+      });
+    });
+  }
+
+  initDatadir() {
+    mkdirp.sync(this.datadir);
+
+    return new Promise((resolve, reject) => {
+      const geth = spawn('geth', [
+        '--datadir',
+        this.datadir,
+        'init',
+        this.genesis
+      ]);
+
+      geth.stdout.pipe(process.stdout);
+      geth.stderr.pipe(process.stderr);
+
+      geth.on('exit', resolve);
+    });
+  }
+
   async start(options = { info: true }) {
     testGethInstalled();
 
     this.createAccounts(2);
+
+    await this.writeGenesis();
+    await this.initDatadir();
     await this.writeKeystore();
 
     if (options.info) {
@@ -74,18 +128,17 @@ class Geth {
     }
 
     this.geth = spawn('geth', [
-      '--dev',
       '--rpc',
       '--rpcapi',
       'admin,shh,personal,net,eth,web3,txpool',
       '--rpccorsdomain',
       '"*"',
-      '--keystore',
-      this.keystore,
       '--unlock',
       this.accounts.map(x => x.address).join(','),
       '--password',
-      '/dev/null'
+      '/dev/null',
+      '--datadir',
+      this.datadir
     ]);
 
     if (options.info) {
@@ -107,6 +160,8 @@ class Geth {
 
   cleanup() {
     rmrf.sync(this.keystore);
+    rmrf.sync(this.datadir);
+    rmrf.sync(this.genesis);
   }
 
   printInfo() {
@@ -118,4 +173,4 @@ class Geth {
   }
 }
 
-module.exports = Geth;
+module.exports = Gethd;
