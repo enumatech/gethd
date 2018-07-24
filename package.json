@@ -4,7 +4,9 @@
   "main": "index.js",
   "author": "Wang Zuo <zuo.wang@enuma.io> (https://wangzuo.me/)",
   "license": "MIT",
-  "bin": "bin.js",
+  "bin": {
+    "gethd": "bin.js"
+  },
   "scripts": {
     "test": "jest"
   },
@@ -18,5 +20,18 @@
     "jest": "^23.4.1",
     "jest-environment-jsdom": "^23.4.0",
     "web3": "1.0.0-beta.34"
-  }
+  },
+  "description": "geth local testing",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enumatech/gethd.git"
+  },
+  "keywords": [
+    "geth",
+    "ethereum"
+  ],
+  "bugs": {
+    "url": "https://github.com/enumatech/gethd/issues"
+  },
+  "homepage": "https://github.com/enumatech/gethd#readme"
 }

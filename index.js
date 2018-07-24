@@ -7,6 +7,7 @@ exports.start = () => gethd.start({ info: false });
 
 exports.stop = () => gethd.stop();
 
+// todo: remove web3 deps
 exports.waitForReady = async () => {
   const Web3 = require('web3');
   const web3 = new Web3('http://localhost:8545');

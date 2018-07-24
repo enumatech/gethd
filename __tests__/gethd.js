@@ -12,14 +12,8 @@ beforeAll(async () => {
 
 afterAll(gethd.stop);
 
-describe('balance', function() {
-  it('of account 0 is positive', async () => {
-    expect(await web3.eth.getBalance(accounts[0])).toEqual(
-      '115792089237316195423570985008687907853269984665640564039457584007913129639927'
-    );
-  });
-
-  // it('of account 1 is 100', async () => {
-  //   expect(await web3.eth.getBalance(accounts[1])).toEqual('100');
-  // });
+test('banlance of account 0 is positive', async () => {
+  expect(await web3.eth.getBalance(accounts[0])).toEqual(
+    '115792089237316195423570985008687907853269984665640564039457584007913129639927'
+  );
 });
