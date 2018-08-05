@@ -15,6 +15,7 @@ exports.waitForReady = async () => {
   while (!ready) {
     try {
       await web3.eth.getAccounts();
+      await sleep(1000);
       ready = true;
     } catch (err) {
       await sleep(100);

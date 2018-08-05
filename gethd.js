@@ -72,7 +72,7 @@ class Gethd {
         eip155Block: 0,
         eip158Block: 0
       },
-      difficulty: '200000000',
+      difficulty: '0x0',
       gasLimit: '2100000',
       alloc: this.accounts.reduce((x, { address }) => {
         x[address] = { balance: '1000000000000000000' };
@@ -80,7 +80,7 @@ class Gethd {
       }, {})
     };
 
-    console.log(genesis);
+    // console.log(JSON.stringify(genesis, ' ', 2));
 
     return new Promise((resolve, reject) => {
       tmp.file((err, filepath) => {
@@ -107,8 +107,8 @@ class Gethd {
         this.genesis
       ]);
 
-      geth.stdout.pipe(process.stdout);
-      geth.stderr.pipe(process.stderr);
+      // geth.stdout.pipe(process.stdout);
+      // geth.stderr.pipe(process.stderr);
 
       geth.on('exit', resolve);
     });
